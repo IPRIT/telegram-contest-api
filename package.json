@@ -1,0 +1,56 @@
+{
+  "name": "javascript-future-api",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "dev": "cross-env NODE_ENV=development DEBUG=Sequelize nodemon server.js",
+    "start": "node ./dist/bootstrap.js",
+    "test": "cross-env NODE_ENV=test mocha --require @babel/register",
+    "predeploy": "npm run build",
+    "predeploy:flexible": "npm run build",
+    "deploy": "gcloud app deploy",
+    "deploy:flexible": "gcloud app deploy app.flexible.yaml"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "keywords": [],
+  "author": "Alexander Belov (IPRIT) <ipritoflex@yandex.com>",
+  "license": "private",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "bluebird": "^3.5.4",
+    "body-parser": "^1.18.3",
+    "cache": "^2.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "clean-deep": "^3.0.2",
+    "cors": "^2.7.1",
+    "deap": "^1.0.1",
+    "debug": "^4.1.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.3",
+    "express-light-limiter": "^1.0.1",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "sequelize": "^4.42.0",
+    "socket.io": "^2.2.0",
+    "tough-cookie": "^3.0.1",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-syntax-class-properties": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.2.0",
+    "cross-env": "^5.0.0-beta.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9"
+  }
+}

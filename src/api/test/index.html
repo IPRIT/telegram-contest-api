@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .form {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+            padding: 24px;
+            max-width: 500px;
+            margin: 10vw auto;
+        }
+        .form > input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            color: #333;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            outline: none;
+        }
+        .form > input:focus {
+            border: 2px solid #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form">
+    <h3 id="total-title">Платеж jf#100000 на сумму 15000 руб.</h3>
+
+    <input id="orderId" type="number" value="100000" placeholder="Номер заказа (id)">
+    <input id="amount" type="number" value="15000" placeholder="Сумма платежа">
+    <input id="successURL" type="text" value="" placeholder="Редирект при успешном платеже на http://">
+    <script>
+      (function () {
+        document.addEventListener('DOMContentLoaded', _ => {
+          // title
+          const totalTitle = document.getElementById( 'total-title' );
+
+          // inputs
+          const orderInput = document.getElementById( 'orderId' );
+          const amountInput = document.getElementById( 'amount' );
+          const successURLInput = document.getElementById( 'successURL' );
+
+          // form inputs
+          const labelInput = document.querySelector( 'form > input[name="label"]' );
+          const targetsInput = document.querySelector( 'form > input[name="targets"]' );
+          const sumInput = document.querySelector( 'form > input[name="sum"]' );
+          const successURLFormInput = document.querySelector( 'form > input[name="successURL"]' );
+
+          function updateForm () {
+            const orderId = orderInput.value;
+            const amountNumber = amountInput.value;
+            const labelText = `jf#${orderId}`;
+            const successURL = successURLInput.value;
+
+            labelInput.value = labelText;
+            targetsInput.value = `Оплата курса «Самый технологичный курс по Node.js»`;
+            sumInput.value = amountNumber;
+            successURLFormInput.value = successURL;
+
+            totalTitle.innerText = `Платеж ${labelText} на сумму ${amountNumber} руб.`;
+          }
+
+          orderInput.addEventListener( 'input', updateForm );
+          amountInput.addEventListener( 'input', updateForm );
+          successURLInput.addEventListener( 'input', updateForm );
+
+          updateForm();
+        });
+      })();
+    </script>
+
+    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+        <input type="hidden" name="receiver" value="410018301001598">
+        <input type="hidden" name="formcomment" value="Оплата курса в JavaScript Future">
+        <input type="hidden" name="short-dest" value="Курс «Самый технологичный курс по Node.js»">
+        <input type="hidden" name="label" value="jf#100000">
+        <input type="hidden" name="quickpay-form" value="shop">
+        <input type="hidden" name="targets" value="Оплата курса «Самый технологичный курс по Node.js»">
+        <input type="hidden" name="sum" value="15000" data-type="number">
+        <input type="hidden" name="comment" value="Александр Белов">
+        <input type="hidden" name="need-fio" value="false">
+        <input type="hidden" name="need-email" value="false">
+        <input type="hidden" name="need-phone" value="false">
+        <input type="hidden" name="need-address" value="false">
+        <input type="hidden" name="paymentType" value="AC"><!-- PC -->
+        <input type="hidden" name="successURL" value=""><!-- PC -->
+        <input type="submit" value="Отправить">
+    </form>
+</div>
+
+</body>
+</html>

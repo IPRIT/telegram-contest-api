@@ -1,0 +1,1 @@
+cloud_sql_proxy -instances=javascript-future:europe-west3:javascript-future-db=tcp:3306

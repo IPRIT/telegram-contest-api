@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name": "contest-parser-api",
+    "script": "./server.js",
+    "exec_mode": "cluster",
+    "max_memory_restart": "800M",
+    "cron_restart": "0 5 * * *",
+    "env_production": {
+      "NODE_ENV": "production"
+    }
+  }]
+}
