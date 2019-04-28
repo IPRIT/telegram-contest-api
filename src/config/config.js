@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import { database as localDatabase } from "./env/local";
-import { database as googleDatabase } from "./env/google-cloud";
 
 if (process.env.NODE_ENV !== 'development'
   && process.env.NODE_ENV !== 'test') {
@@ -8,11 +7,8 @@ if (process.env.NODE_ENV !== 'development'
 }
 
 const env = process.env.NODE_ENV;
-const isGoogleCloud = process.env.GOOGLE_CLOUD === 'true';
 
-const databaseCredentials = isGoogleCloud
-  ? googleDatabase
-  : localDatabase;
+const databaseCredentials = localDatabase;
 
 export const config = {
   "env": env,
