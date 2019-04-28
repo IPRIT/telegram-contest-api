@@ -7,6 +7,7 @@ import { config } from "./config";
 import { normalizePort } from "./utils/server-utils";
 import { makeRelations } from "./models/relations";
 import * as worker from './platform/worker';
+import { SocketManager } from './network/socket-manager';
 
 // sync models schemas
 makeRelations();
@@ -25,6 +26,8 @@ app.set( 'env', process.env.NODE_ENV );
  * Create HTTP server.
  */
 const server = http.createServer( app );
+const socketManager = SocketManager.getManager();
+socketManager.initialize( server );
 
 /**
  * Listen on provided port, on all network interfaces.

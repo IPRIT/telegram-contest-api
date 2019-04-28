@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import * as models from '../../models';
 import { createFiles } from './files';
 import { findOrCreateUser } from './users';
+import { SocketManager } from '../../network/socket-manager';
 
 const issuesMap = new Map();
 let handledIssues = 0;
@@ -49,6 +50,12 @@ export async function findOrCreateIssue (issueObject, parent = null) {
     issuesMap.set( issueCacheKey, issue );
   }
 
+  if (created) {
+    const socketManager = SocketManager.getManager();
+    const fullIssue = await resolveFullIssue( issue );
+    socketManager.io.emit( 'issues.update', fullIssue.get({ plain: true }) );
+  }
+
   if (created && issueObject.files.length) {
     const files = await createFiles( issueObject.files );
     await issue.setMediaFiles( files );
@@ -73,4 +80,24 @@ export async function findOrCreateIssue (issueObject, parent = null) {
  */
 function getIssueCacheKey (issueObject) {
   return `${issueObject.externalId}::${issueObject.user.displayName}`;
+}
+
+async function resolveFullIssue (issue) {
+  return models.Issue.findByPk(issue.id, {
+    include: [
+      models.MediaFile, {
+        model: models.User,
+        as: 'Author',
+        required: true,
+        include: [{
+          model: models.MediaFile,
+          as: 'Photo',
+          required: false
+        }]
+      }, {
+        model: models.Entry,
+        attributes: [ 'platformType', 'externalId' ]
+      }
+    ]
+  });
 }

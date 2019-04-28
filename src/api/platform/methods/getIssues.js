@@ -60,14 +60,7 @@ export async function getIssues (params) {
     ],
     offset, limit,
     include: [
-      models.MediaFile, /*{
-        model: models.Issue,
-        as: 'ParentIssue',
-        required: false,
-        where: {
-          parentIssueId: Sequelize.col( 'Issue.id' )
-        }
-      },*/ {
+      models.MediaFile, {
         model: models.User,
         as: 'Author',
         required: true,

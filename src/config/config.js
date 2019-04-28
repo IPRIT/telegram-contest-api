@@ -45,6 +45,7 @@ export const config = {
     }
   },
   "socket": {
+    "path": "/events",
     "serveClient": false,
     // below are engine.IO options
     "pingInterval": 2000,

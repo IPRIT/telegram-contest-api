@@ -42,42 +42,17 @@ export class SocketManager {
   }
 
   /**
-   * @param {Socket} socket
-   * @private
+   * @return {*}
    */
-  _onConnection (socket) {
-    return this._addOrRepairPlayer( socket ).catch(error => {
-      socket.emit( SocketEvents.SYSTEM_ERROR, error.message );
-    });
+  get io () {
+    return this._io;
   }
 
   /**
    * @param {Socket} socket
-   * @returns {Player}
    * @private
    */
-  async _addOrRepairPlayer (socket) {
-    /**
-     * @var {Session} userSession
-     */
-    const userSession = socket.userSession;
-    const userId = userSession.User.id;
-
-    const players = Players.getPlayers();
-
-    if (players.hasPlayer( userId )) {
-      players.repairPlayer( userId, socket, userSession );
-    } else {
-      const player = new Player( socket, userSession );
-      players.addPlayer( player );
-    }
-
-    const player = players.getPlayer( userId );
-
-    if (!player.isCharacterSelected && player.isConnected) {
-      player.selectCharacter();
-    }
-
-    return player;
+  _onConnection (socket) {
+    console.log( 'connected', socket.id );
   }
 }
