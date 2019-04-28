@@ -1,7 +1,7 @@
 {
   "apps" : [{
-    "name": "contest-parser-api",
-    "script": "./server.js",
+    "name": "cd-api",
+    "script": "./dist/bootstrap.js",
     "exec_mode": "cluster",
     "max_memory_restart": "800M",
     "cron_restart": "0 5 * * *",
