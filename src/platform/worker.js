@@ -45,7 +45,7 @@ function tick () {
   }).tap(entries => {
     console.log( 'updating entries:', entries.map(v => v.externalId) );
   }).map(outdatedEntry => {
-    console.log( 'fetching issues:', outdatedEntry.externalId );
+    console.log( 'fetching issues from entry:', outdatedEntry.externalId );
     return getIssues( outdatedEntry );
   }, { concurrency: 20 }).reduce((globalIssues, issues) => {
     return !issues

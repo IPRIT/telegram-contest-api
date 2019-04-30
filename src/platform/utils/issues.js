@@ -21,13 +21,23 @@ export async function createOrUpdateIssues (issues) {
 }
 
 export async function findOrCreateIssue (issueObject, parent = null) {
-  const issueCacheKey = getIssueCacheKey( issueObject );
-
   const authorObject = issueObject.user;
   const author = await findOrCreateUser( authorObject );
 
+  const issueCacheKey = getIssueCacheKey( issueObject, author, !!parent );
+
   let issue = null;
   let created = false;
+
+  const issueReadyData = {
+    externalId: issueObject.externalId,
+    displayMessage: issueObject.displayMessage,
+    displayDevice: issueObject.displayDevice,
+    rating: issueObject.rating,
+    entryId: issueObject.entryId || parent.entryId,
+    parentIssueId: parent && parent.id || null,
+    createdAt: issueObject.createdAt
+  };
 
   if (issuesMap.has( issueCacheKey )) {
     issue = issuesMap.get( issueCacheKey );
@@ -37,15 +47,7 @@ export async function findOrCreateIssue (issueObject, parent = null) {
         externalId: issueObject.externalId,
         authorId: author.id
       },
-      defaults: {
-        externalId: issueObject.externalId,
-        displayMessage: issueObject.displayMessage,
-        displayDevice: issueObject.displayDevice,
-        rating: issueObject.rating,
-        entryId: issueObject.entryId || parent.entryId,
-        parentIssueId: parent && parent.id || null,
-        createdAt: issueObject.createdAt
-      }
+      defaults: issueReadyData
     });
     issuesMap.set( issueCacheKey, issue );
   }
@@ -54,6 +56,8 @@ export async function findOrCreateIssue (issueObject, parent = null) {
     const socketManager = SocketManager.getManager();
     const fullIssue = await resolveFullIssue( issue );
     socketManager.io.emit( 'issues.update', fullIssue.get({ plain: true }) );
+  } else {
+    await issue.update( issueReadyData );
   }
 
   if (created && issueObject.files.length) {
@@ -76,10 +80,15 @@ export async function findOrCreateIssue (issueObject, parent = null) {
 
 /**
  * @param issueObject
+ * @param user
+ * @param isReply
  * @return {string}
  */
-function getIssueCacheKey (issueObject) {
-  return `${issueObject.externalId}::${issueObject.user.displayName}`;
+function getIssueCacheKey (issueObject, user, isReply = false) {
+  if (isReply) {
+    return `${issueObject.externalId}::reply::${user.id}`;
+  }
+  return issueObject.externalId;
 }
 
 async function resolveFullIssue (issue) {
