@@ -52,17 +52,17 @@ export async function findOrCreateIssue (issueObject, parent = null) {
     issuesMap.set( issueCacheKey, issue );
   }
 
+  if (created && issueObject.files.length) {
+    const files = await createFiles( issueObject.files );
+    await issue.setMediaFiles( files );
+  }
+
   if (created) {
     const socketManager = SocketManager.getManager();
     const fullIssue = await resolveFullIssue( issue );
     socketManager.io.emit( 'issues.update', fullIssue.get({ plain: true }) );
   } else {
     await issue.update( issueReadyData );
-  }
-
-  if (created && issueObject.files.length) {
-    const files = await createFiles( issueObject.files );
-    await issue.setMediaFiles( files );
   }
 
   if (issueObject.reply) {
