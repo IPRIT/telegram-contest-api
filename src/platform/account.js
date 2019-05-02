@@ -51,7 +51,8 @@ export function getPage (pathTo, qs = {}) {
     // jar: accountJar,
     transform (body) {
       return cheerio.load( body );
-    }
+    },
+    timeout: 10000
   };
 
   return request( options );
