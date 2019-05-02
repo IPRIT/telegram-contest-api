@@ -53,5 +53,5 @@ function tick () {
       : globalIssues.concat( issues );
   }, []).then(issues => {
     return createOrUpdateIssues( issues );
-  }).finally( nextTick );
+  }).catch( console.log ).finally( nextTick );
 }
