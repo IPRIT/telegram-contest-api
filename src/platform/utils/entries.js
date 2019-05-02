@@ -91,5 +91,5 @@ export async function findOrCreateEntry (entryObject) {
  * @return {number}
  */
 function getNextUpdateTime () {
-  return Date.now() + TIME_PERIODS.minute * 3 + TIME_PERIODS.minute * 10 * Math.random();
+  return Date.now() + TIME_PERIODS.minute * 30000 + TIME_PERIODS.minute * 10 * Math.random();
 }
