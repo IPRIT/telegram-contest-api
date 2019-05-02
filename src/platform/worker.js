@@ -35,16 +35,18 @@ function tick () {
   return Promise.resolve( platformTypes ).map(async platformType => {
     try {
       const result = await getEntries( platformType );
+      console.log( 'got entries', platformType );
       return result;
     } catch (e) {
       console.log( e );
       return [];
     }
-  }, { concurrency: 1 }).reduce((globalEntries, entries) => {
+  }, { concurrency: 10 }).reduce((globalEntries, entries) => {
     return !entries
       ? globalEntries
       : globalEntries.concat( entries );
   }, []).then(entries => {
+    console.log( 'entries', entries.length );
     return createOrUpdateEntries( entries );
   }).then(_ => {
     return getOutdatedEntries();
