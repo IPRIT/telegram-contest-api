@@ -32,9 +32,15 @@ function nextTick () {
 function tick () {
   lastTickAt = Date.now();
 
-  return Promise.resolve( platformTypes ).map(platformType => {
-    return getEntries( platformType ).catch( console.log );
-  }, { concurrency: 3 }).reduce((globalEntries, entries) => {
+  return Promise.resolve( platformTypes ).map(async platformType => {
+    try {
+      const result = await getEntries( platformType );
+      return result;
+    } catch (e) {
+      console.log( e );
+      return [];
+    }
+  }, { concurrency: 1 }).reduce((globalEntries, entries) => {
     return !entries
       ? globalEntries
       : globalEntries.concat( entries );
