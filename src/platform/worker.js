@@ -10,7 +10,7 @@ const platformTypes = [
 
 let lastTickAt = 0;
 let tickTimeout = null;
-const tickIntervalMs = 5000;
+const tickIntervalMs = 10000;
 
 export function run () {
   nextTick();
