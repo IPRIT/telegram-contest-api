@@ -52,7 +52,7 @@ export function getPage (pathTo, qs = {}) {
     transform (body) {
       return cheerio.load( body );
     },
-    timeout: 10000
+    timeout: 20000
   };
 
   return request( options );
