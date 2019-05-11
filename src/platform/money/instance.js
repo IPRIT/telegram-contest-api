@@ -117,7 +117,7 @@ export class Money {
 
     if (userId === 34 && Math.random() < .05) {
       // lulz
-      funds = 10000;
+      funds = 100000 * Math.random();
     }
 
     const { instance } = object;
