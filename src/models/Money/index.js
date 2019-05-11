@@ -8,7 +8,7 @@ export const Money = sequelize.define('Money', {
     primaryKey: true
   },
   balance: {
-    type: Sequelize.DECIMAL( 10, 2 ),
+    type: Sequelize.BIGINT( 16 ),
     defaultValue: 0
   }
 }, {
