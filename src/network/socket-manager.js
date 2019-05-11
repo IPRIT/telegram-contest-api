@@ -1,6 +1,6 @@
 import Socket from 'socket.io';
-import { SocketEvents } from "./socket-events";
 import { config } from '../config/config';
+import { Money } from '../platform/money';
 
 export class SocketManager {
 
@@ -54,5 +54,10 @@ export class SocketManager {
    */
   _onConnection (socket) {
     console.log( 'connected', socket.id );
+
+    const money = Money.getInstance();
+    socket.on('money.addFunds', ev => {
+      money.add( 10, ev );
+    });
   }
 }

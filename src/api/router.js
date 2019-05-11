@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from './cors';
 import { router as platformRouter } from "./platform";
+import { router as moneyRouter } from "./money";
 import { router as testRouter } from "./test";
 
 const router = express.Router();
@@ -12,6 +13,7 @@ router.use( bodyParser.urlencoded({ extended: false }) );
 router.all( '*', cors );
 
 router.use( '/platform', platformRouter );
+router.use( '/money', moneyRouter );
 router.use( '/test', testRouter );
 
 export {

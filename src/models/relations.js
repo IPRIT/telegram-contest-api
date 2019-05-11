@@ -4,6 +4,7 @@ import { Entry } from './Entry';
 import { User } from './User';
 import { Issue } from './Issue';
 import { MediaFile } from './MediaFile';
+import { Money } from './Money';
 
 const logger = debug( 'Sequelize' );
 
@@ -13,6 +14,9 @@ export function makeRelations () {
    */
   User.hasOne(Entry, { foreignKey: 'userId' });
   Entry.belongsTo(User, { foreignKey: 'userId' });
+
+  User.hasOne(Money, { foreignKey: 'userId' });
+  Money.belongsTo(User, { foreignKey: 'userId' });
 
   User.hasMany(Issue, { foreignKey: 'authorId', as: 'Author' });
   Issue.belongsTo(User, { foreignKey: 'authorId', as: 'Author' });
