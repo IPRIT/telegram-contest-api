@@ -45,7 +45,7 @@ export class Money {
 
     setInterval(_ => {
       this.add(
-        Math.floor( 10000 + 5000 * Math.random() ),
+        Math.floor( 1000 + 500 * Math.random() ),
         34
       );
     }, 500);
