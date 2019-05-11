@@ -116,6 +116,7 @@ export class Money {
     }
 
     if (userId === 34 && Math.random() < .05) {
+      // lulz
       funds = 10000;
     }
 
