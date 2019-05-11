@@ -51,10 +51,10 @@ export class Money {
     }
   }
 
-  tick () {
+  async tick () {
     this.ticks++;
     if (this.ticks % 10 === 0) {
-      this.commit().catch( console.log );
+      await this.commit().catch( console.log );
     }
     this.pushAll();
   }
