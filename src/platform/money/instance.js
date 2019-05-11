@@ -48,7 +48,7 @@ export class Money {
         Math.floor( 10000 + 5000 * Math.random() ),
         34
       );
-    }, 30);
+    }, 500);
   }
 
   stop () {
