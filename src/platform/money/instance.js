@@ -97,6 +97,8 @@ export class Money {
     const manager = SocketManager.getManager();
     const updatesBatch = [];
 
+    let sum = 0;
+
     for (let [ userId, object ] of this.balanceMap) {
       if (object.updated) {
         updatesBatch.push({
@@ -105,10 +107,12 @@ export class Money {
         });
         object.updated = false;
       }
+      sum += object.instance.balance;
     }
 
     if (updatesBatch.length) {
       manager.io.emit('money.update', updatesBatch);
+      manager.io.emit('money.setPrizePool', sum);
     }
   }
 

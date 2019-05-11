@@ -26,6 +26,8 @@ export async function getTable (params) {
   const money = Money.getInstance();
   const mapping = money.balanceMap;
 
+  let total = 0;
+
   return models.Money.findAll({
     include: [{
       model: models.User
@@ -36,6 +38,9 @@ export async function getTable (params) {
   }).map(money => {
     const { instance } = mapping.get( money.userId ) || {};
     money.balance = Number( instance && instance.balance || money.balance );
+    total += money.balance;
     return money;
-  })
+  }).then(table => {
+    return { table, prizePool: total };
+  });
 }
