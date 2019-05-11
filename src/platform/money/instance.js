@@ -43,12 +43,12 @@ export class Money {
   start () {
     this.updateInterval = setInterval(_ => this.tick(), 400);
 
-    setInterval(_ => {
+    /*setInterval(_ => {
       this.add(
         Math.floor( 100 + 50 * Math.random() ) * 10,
         34
       );
-    }, 500);
+    }, 500);*/
   }
 
   stop () {
