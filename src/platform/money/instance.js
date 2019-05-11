@@ -48,7 +48,7 @@ export class Money {
         10 * Math.floor(10 * Math.random()),
         34
       );
-    });
+    }, 30);
   }
 
   stop () {
