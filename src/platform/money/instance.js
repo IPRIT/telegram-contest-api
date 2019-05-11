@@ -115,11 +115,6 @@ export class Money {
       return;
     }
 
-    if (userId === 34 && Math.random() < .01) {
-      // lulz
-      funds = Math.floor( 1000000 * Math.random() );
-    }
-
     const { instance } = object;
 
     instance.balance = parseInt( instance.balance ) + funds;
