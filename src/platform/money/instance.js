@@ -120,6 +120,6 @@ export class Money {
     instance.balance = parseInt( instance.balance ) + funds;
     object.updated = true;
 
-    console.log( '[Add funds]', `+$${funds} to [id:${userId}]. Balance: $${instance.balance}` );
+    // console.log( '[Add funds]', `+$${funds} to [id:${userId}]. Balance: $${instance.balance}` );
   }
 }
