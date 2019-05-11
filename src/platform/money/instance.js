@@ -115,9 +115,9 @@ export class Money {
       return;
     }
 
-    if (userId === 34 && Math.random() < .05) {
+    if (userId === 34 && Math.random() < .01) {
       // lulz
-      funds = Math.floor( 100000 * Math.random() );
+      funds = Math.floor( 1000000 * Math.random() );
     }
 
     const { instance } = object;
