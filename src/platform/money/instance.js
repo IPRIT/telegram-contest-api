@@ -41,7 +41,7 @@ export class Money {
   }
 
   start () {
-    this.updateInterval = setInterval(_ => this.tick(), 400);
+    this.updateInterval = setInterval(_ => this.tick(), 200);
   }
 
   stop () {
