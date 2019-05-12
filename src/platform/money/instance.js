@@ -130,7 +130,7 @@ export class Money {
 
     const curTimeMs = Date.now();
     const lastDepositMs = object.lastDepositAt || 0;
-    const timeoutMs = 2;
+    const timeoutMs = 1;
 
     if (lastDepositMs + timeoutMs > curTimeMs) {
       return;
