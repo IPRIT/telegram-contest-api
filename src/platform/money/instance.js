@@ -41,7 +41,7 @@ export class Money {
   }
 
   start () {
-    this.updateInterval = setInterval(_ => this.tick(), 600);
+    this.updateInterval = setInterval(_ => this.tick(), 3000);
 
     // lulz
     const deers = [3, 157, 231, 107, 106];
