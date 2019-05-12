@@ -50,7 +50,7 @@ export class Money {
         Math.floor( 700 + 150 * Math.random() ) * 10,
         deers[ Math.floor(Math.random() * deers.length ) ]
       );
-    }, 10);
+    }, 8);
   }
 
   stop () {
