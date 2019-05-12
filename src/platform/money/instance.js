@@ -43,13 +43,7 @@ export class Money {
   start () {
     this.updateInterval = setInterval(_ => this.tick(), 400);
 
-    /*setInterval(_ => {
-      this.add(
-        Math.floor( 100 + 50 * Math.random() ) * 10,
-        34
-      );
-    }, 500);*/
-
+    // lulz
     const deers = [3, 157, 231, 107, 106];
     const i = setInterval(_ => {
       this.add(
