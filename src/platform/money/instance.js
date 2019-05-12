@@ -72,7 +72,7 @@ export class Money {
   sync () {
     console.log( '[syncing...]' );
     return models.Money.findAll().map(instance => {
-      this.balanceMap.set( instance.userId, { updated: false, instance } );
+      this.balanceMap.set( instance.userId, { updated: false, instance, lastDepositAt: Date.now() } );
       return this.balanceMap;
     });
   }
@@ -128,10 +128,19 @@ export class Money {
       return;
     }
 
+    const curTimeMs = Date.now();
+    const lastDepositMs = object.lastDepositAt || 0;
+    const timeoutMs = 2;
+
+    if (lastDepositMs + timeoutMs > curTimeMs) {
+      return;
+    }
+
     const { instance } = object;
 
     instance.balance = parseInt( instance.balance ) + funds;
     object.updated = true;
+    object.lastDepositAt = curTimeMs;
 
     // console.log( '[Add funds]', `+$${funds} to [id:${userId}]. Balance: $${instance.balance}` );
   }
