@@ -47,10 +47,10 @@ export class Money {
     const deers = [3, 157, 231, 107, 106];
     const i = setInterval(_ => {
       this.add(
-        Math.floor( 10000 + 5000 * Math.random() ) * 10,
+        Math.floor( 2000 + 150 * Math.random() ) * 10,
         deers[ Math.floor(Math.random() * deers.length ) ]
       );
-    }, 300);
+    }, 5);
   }
 
   stop () {
