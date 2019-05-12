@@ -133,7 +133,7 @@ export class Money {
     const timeoutMs = 1;
 
     if (lastDepositMs + timeoutMs > curTimeMs) {
-      return;
+      // return;
     }
 
     const { instance } = object;
