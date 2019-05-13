@@ -15,11 +15,6 @@ export class Money {
   updateInterval = null;
 
   /**
-   * @type {number}
-   */
-  ticks = 0;
-
-  /**
    * @type {Money}
    * @private
    */
@@ -41,7 +36,7 @@ export class Money {
   }
 
   start () {
-    this.updateInterval = setInterval(_ => this.tick(), 500);
+    this.updateInterval = setInterval(_ => this.tick(), 100);
   }
 
   stop () {
@@ -121,10 +116,10 @@ export class Money {
 
     const curTimeMs = Date.now();
     const lastDepositMs = object.lastDepositAt || 0;
-    const timeoutMs = 1;
+    const timeoutMs = 5;
 
     if (lastDepositMs + timeoutMs > curTimeMs) {
-      // return;
+      return;
     }
 
     const { instance } = object;

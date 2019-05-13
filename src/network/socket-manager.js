@@ -57,8 +57,7 @@ export class SocketManager {
 
     const money = Money.getInstance();
     socket.on('money.addFunds', ev => {
-      socket.disconnect( true );
-      // money.add( 10, ev );
+      money.add( 100, ev );
     });
   }
 }

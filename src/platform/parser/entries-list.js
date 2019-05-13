@@ -6,7 +6,7 @@ import * as account from '../account';
  */
 export function getEntries (platformType) {
   const pathTo = `/${getPlatformKey( platformType )}`;
-  return account.getPage( pathTo ).then($ => {
+  return account.getPage( pathTo, { mode: 'all' } ).then($ => {
     const $entries = $( '.cd-entry' );
     const $items = [];
     for (let i = 0, len = $entries.length; i < len; ++i) {
