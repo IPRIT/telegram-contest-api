@@ -116,7 +116,7 @@ export class Money {
 
     const curTimeMs = Date.now();
     const lastDepositMs = object.lastDepositAt || 0;
-    const timeoutMs = 5;
+    const timeoutMs = 15;
 
     if (lastDepositMs + timeoutMs > curTimeMs) {
       return;
